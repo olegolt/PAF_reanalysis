@@ -5,12 +5,11 @@ This repository contains code for the re-analysis of the preprint: **"A novel co
 ## Overview
 
 The code performs the following tasks:
-1. **Data Loading and Preprocessing**: Loads data from Excel files, calculates CME (Chronic Morphological Effect), and merges datasets on individual IDs.
-2. **Model Training and Evaluation**: Trains several machine learning models (e.g., Logistic Regression, Random Forest, Gradient Boosting, SVC, MLPClassifier) using nested pipelines, imputing missing values and scaling features.
-3. **Hyperparameter Tuning**: Optimizes models using grid search with cross-validation.
-4. **Performance Evaluation**: Computes accuracy and AUC metrics for training and test datasets.
-5. **Result Aggregation**: Aggregates results across multiple random seeds and saves them to CSV files.
-6. **Visualization**: Generates bar plots for accuracy and AUC metrics for each model.
+1. **Data Loading and Preprocessing**: Loads data from Excel files, calculates CME, and merges datasets on individual IDs.
+2. **Model Training and Evaluation**: Trains several machine learning models (e.g., Logistic Regression, Random Forest, Gradient Boosting, SVC, MLPClassifier)
+3. **Performance Evaluation**: Computes accuracy and AUC metrics for training and test datasets.
+4. **Result Aggregation**: Aggregates results across multiple random seeds and saves them to CSV files.
+5. **Visualization**: Generates bar plots for accuracy and AUC metrics for each model.
 
 ## Requirements
 
