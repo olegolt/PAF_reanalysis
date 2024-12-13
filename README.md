@@ -20,7 +20,6 @@ To run this code, you need the following Python libraries:
 - scikit-learn
 - seaborn
 - matplotlib
-- openpyxl (for reading Excel files)
 
 Ensure you have Python 3.8 or higher installed.
 
