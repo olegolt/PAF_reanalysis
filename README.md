@@ -72,6 +72,14 @@ openpyxl
    - `Accuracy_by_Model.svg`
    - `AUC_by_Model.svg`
 
+## Results
+
+AUC and accuracy for the five different models are displayed here (based on 20 repetitions)
+
+![AUC](figures/AUC_by_Model.svg)
+![AUC](figures/Accuracy_by_Model.svg)
+
+
 ## Contact
 For questions or issues, please contact [ole.goltermann@maxplanckschools.de].
 
