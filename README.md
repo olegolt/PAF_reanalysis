@@ -39,7 +39,6 @@ pandas
 scikit-learn
 seaborn
 matplotlib
-openpyxl
 ```
 
 ## How to Run the Code
