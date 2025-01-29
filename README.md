@@ -1,6 +1,6 @@
-# Re-analysis of ["Predicting Individual Pain Sensitivity Using a Novel Cortical Biomarker Signature"](https://jamanetwork.com/journals/jamaneurology/fullarticle/2829261)
+# Re-analysis of "Predicting Individual Pain Sensitivity Using a Novel Cortical Biomarker Signature"
 
-This repository contains code for the re-analysis of the preprint: **"Predicting Individual Pain Sensitivity Using a Novel Cortical Biomarker Signature"**. The analysis includes the preprocessing and modeling of original data to evaluate predictive models for individual pain sensitivity class (low vs high) based on peak-alpha frequency (PAF) and corticomotor excitability (CME).
+This repository contains code for the re-analysis of the preprint: [**"Predicting Individual Pain Sensitivity Using a Novel Cortical Biomarker Signature"**](https://jamanetwork.com/journals/jamaneurology/fullarticle/2829261). The analysis includes the preprocessing and modeling of original data to evaluate predictive models for individual pain sensitivity class (low vs high) based on peak-alpha frequency (PAF) and corticomotor excitability (CME).
 
 In the original study, Chowdhury, Bi et al. (2025) assessed the ability of a biomarker based on PAF and CME to predict pain sensitivity using a machine learning approach. Their study found that a logistic regression model demonstrated outstanding performance (AUC_validation set = 1.0, AUC_test set = 0.88). They interpreted these results as evidence that the biomarker is reliable, reproducible, and has substantial potential for clinical application. However, the notably lower AUC for the training set (AUC_training set = 0.65) compared to the validation and test sets raised concerns among us, leading to a re-analysis of their code and date. 
 
