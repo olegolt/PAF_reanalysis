@@ -6,7 +6,7 @@ In the original study, Chowdhury, Bi et al. (2025) assessed the ability of a bio
 
 Our results, which we believe are a more robust estimate of the models capability, are the following:
 - logistic regression model remains the winning model
-- AUC_training set = .76, Accuracy_training set = .70 ; **AUC_test set = .74, Accuracy_test set = .67**.
+- AUC_training set = .75, Accuracy_training set = .69 ; **AUC_test set = .74, Accuracy_test set = .68**.
 
 Based on these results, we would argue against the conclusion of a biomarker with substantial potential for clinical application.
 
@@ -97,9 +97,8 @@ matplotlib
 
 AUC and accuracy for the five different models are displayed here (based on 100 repetitions). 
 
-![AUC](figures/AUC_by_Model.svg)
-![AUC](figures/Accuracy_by_Model.svg)
-
+<img src="figures/AUC_by_Model.svg" alt="AUC" width="600">
+<img src="figures/Accuracy_by_Model.svg" alt="AUC" width="600">
 
 ## Contact
 For questions or issues, please contact [ole.goltermann@maxplanckschools.de].
