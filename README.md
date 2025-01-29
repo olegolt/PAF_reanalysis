@@ -97,8 +97,8 @@ matplotlib
 
 AUC and accuracy for the five different models are displayed here (based on 100 repetitions). 
 
-!#[AUC](figures/AUC_by_Model.svg)
-!#[AUC](figures/Accuracy_by_Model.svg)
+![AUC](figures/AUC_by_Model.svg)
+![AUC](figures/Accuracy_by_Model.svg)
 
 
 ## Contact
