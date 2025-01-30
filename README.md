@@ -2,7 +2,7 @@
 
 This repository contains code for the re-analysis of the preprint: [**"Predicting Individual Pain Sensitivity Using a Novel Cortical Biomarker Signature"**](https://jamanetwork.com/journals/jamaneurology/fullarticle/2829261). The analysis includes the preprocessing and modeling of original data to evaluate predictive models for individual pain sensitivity class (low vs high) based on peak-alpha frequency (PAF) and corticomotor excitability (CME).
 
-In the original study, Chowdhury, Bi et al. (2025) assessed the ability of a biomarker based on PAF and CME to predict pain sensitivity using a machine learning approach. Their study found that a logistic regression model demonstrated outstanding performance (AUC_validation set = 1.0, AUC_test set = 0.88). They interpreted these results as evidence that the biomarker is reliable, reproducible, and has substantial potential for clinical application. However, the notably lower AUC for the training set (AUC_training set = 0.65) compared to the validation and test sets raised concerns among us, leading to a re-analysis of their code and date. 
+In the original study, Chowdhury, Bi et al. (2025) assessed the ability of a biomarker based on PAF and CME to predict pain sensitivity using a machine learning approach. Their study found that a logistic regression model demonstrated outstanding performance (AUC_validation set = 1.0, AUC_test set = 0.88). They interpreted these results as evidence that the biomarker is reliable, reproducible, and has substantial potential for clinical application. However, the notably lower AUC for the training set (AUC_training set = 0.65) compared to the validation and test sets raised concerns among us, leading to a re-analysis of their code and data. 
 
 Our results, which we believe are a more robust estimate of the models capability, are the following:
 - logistic regression model remains the winning model
@@ -18,7 +18,9 @@ We found two major issues that likely explain the odd discrepancy of the models 
   
    <img src="figures/histogram_AUC.png" alt="AUC" width="450">
 
-2. Similarly, the reported AUC of 0.88 for the test set is based on a single train-test split. Given the relatively small overall sample size for this type of analysis, the result is likely susceptible to biases introduced by specific sample characteristics. To mitigate this issue, we recommend implementing repeated train-test splits in the analysis pipeline and calculating average AUC and accuracy metrics. This approach would provide more robust and reliable estimates of model performance while reducing the risk of overestimating predictive power.
+2. Similarly, the reported AUC of 0.88 for the test set is based on a single train-test split. Given the relatively small overall sample size for this type of analysis, the result is likely susceptible to biases introduced by specific sample characteristics. To mitigate this issue, we recommend implementing repeated train-test splits in the analysis pipeline and calculating average AUC and accuracy metrics. This approach would provide more robust and reliable estimates of model performance while reducing the risk of overestimating predictive power. The two histograms below show the AUC and accuracy distribution for our analysis with repeated data splits. The reported AUC of 0.88 in the paper is clearly an outlier and not a valid estimate of the models performance.
+
+   <img src="Metrics_testset_histogram.svg" alt="histograms" width="800">
 
 
 ## Our analysis pipeline  
@@ -97,8 +99,8 @@ matplotlib
 
 AUC and accuracy for the five different models are displayed here (based on 100 repetitions). 
 
-<img src="figures/AUC_by_Model.svg" alt="AUC" width="600">
-<img src="figures/Accuracy_by_Model.svg" alt="AUC" width="600">
+<img src="figures/AUC_by_model.svg" alt="AUC" width="600">
+<img src="figures/Accuracy_by_model.svg" alt="AUC" width="600">
 
 ## Contact
 For questions or issues, please contact [ole.goltermann@maxplanckschools.de].
