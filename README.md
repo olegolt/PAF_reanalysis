@@ -20,7 +20,7 @@ We found two major issues that likely explain the odd discrepancy of the models 
 
 2. Similarly, the reported AUC of 0.88 for the test set is based on a single train-test split. Given the relatively small overall sample size for this type of analysis, the result is likely susceptible to biases introduced by specific sample characteristics. To mitigate this issue, we recommend implementing repeated train-test splits in the analysis pipeline and calculating average AUC and accuracy metrics. This approach would provide more robust and reliable estimates of model performance while reducing the risk of overestimating predictive power. The two histograms below show the AUC and accuracy distribution for our analysis with repeated data splits. The reported AUC of 0.88 in the paper is clearly an outlier and not a valid estimate of the models performance.
 
-   <img src="Metrics_testset_histogram.svg" alt="histograms" width="800">
+   <img src="figures/Metrics_testset_histogram.svg" alt="histograms" width="800">
 
 
 ## Our analysis pipeline  
