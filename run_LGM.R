@@ -1,5 +1,6 @@
 library(lcmm)
 library(reshape2)
+library(parallel)  # Load parallel package
 
 basepath = "/home/ole/projects/PAF_reanalysis"
 
@@ -10,9 +11,15 @@ all_pain_df_long_train = melt(data = all_pain_df_train[, 1:14],
                               id.vars = c("ID"),
                               variable.name = "t",
                               value.name = "y")
+
 # form the latent growth models
-lcga1 <-hlme(y ~ t, subject = "ID", ng = 1, data = all_pain_df_long_train, verbose = FALSE)
-lcga2 <-gridsearch(rep = 8, maxiter = 100, minit = lcga1,hlme(y ~ t, subject = "ID",ng = 2, data = all_pain_df_long_train, mixture = ~ t, verbose = FALSE))
+lcga1 <- hlme(y ~ t, subject = "ID", ng = 1, data = all_pain_df_long_train, verbose = FALSE)
+
+# Use 8 cores for gridsearch
+num_cores <- min(16, detectCores())  # Ensure we don't exceed available cores
+lcga2 <- gridsearch(rep = 8, maxiter = 100, minit = lcga1, 
+                    hlme(y ~ t, subject = "ID", ng = 2, data = all_pain_df_long_train, 
+                         mixture = ~ t, verbose = FALSE), cl = num_cores)
 
 # form classes of high and low pain sensitive 
 class_1_ID = lcga2$pprob[order(lcga2$pprob$prob1)[1:40],c(1)]
