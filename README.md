@@ -21,6 +21,11 @@ This repository contains code for the re-analysis of the paper: ["Predicting Ind
 
 **Figure 1**. **(A)** Out of 1,000 sub-samples of 16 individuals taken from the training set (they call it incorrectly ‘validation’ set), only four result in an AUC of 1.0. The expected AUC for this sub-sample is 0.73, matching the AUC of the training set, as successfully depicted in the histogram. **(B)** Out of 1,000 repeated analyses, in which all analysis steps—including the latent growth model used to form pain sensitivity classes—were identical to those in the original study, only 16 produced an AUC as high as the one reported in the paper. In fact, the likelihood of obtaining an AUC of 0.59 or lower was just as high as reaching the reported value of 0.88 (P = 0.016).
 
+## Deviations from their protocol
+
+| Protocol | What they actually did | Influence on results |
+|----------|------------------------|----------------------|
+| (...) | (...) | (...) |
 
 ## Our analysis pipeline  
 
