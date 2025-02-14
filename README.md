@@ -10,11 +10,11 @@
 This repository contains code for the re-analysis of the paper: ["Predicting Individual Pain Sensitivity Using a Novel Cortical Biomarker Signature"](https://jamanetwork.com/journals/jamaneurology/fullarticle/2829261). The analysis includes the preprocessing and modeling of original data to evaluate predictive models for individual pain sensitivity class (low vs high) based on peak-alpha frequency (PAF) and corticomotor excitability (CME). Based on our results, as well as flaws and mistakes spotted in their code, we wrote the following **Letter to the Editor**:
 
 ---
-*Chowdhury, Bi et al. (2025) evaluated a biomarker for pain sensitivity, reporting a logistic regression model using peak alpha frequency (PAF) and corticomotor excitability (CME) achieved outstanding performance (AUCvalidation set = 1.0, AUCtest set = 0.88). They concluded that this biomarker is robust, reproducible, and has substantial clinical translation potential. While we appreciate this well-designed study and its open data, we identified two major methodological issues that undermine these conclusions. Our reanalysis shows the **reported AUC values had a 1 in 15,625 chance**, indicating luck rather than reliability.* 
+*Chowdhury, Bi et al. (2025) evaluated a biomarker for pain sensitivity, reporting a logistic regression model using peak alpha frequency (PAF) and corticomotor excitability (CME) achieved outstanding performance (AUCvalidation set = 1.0, AUCtest set = 0.88). They concluded that this biomarker is robust, reproducible, and has substantial clinical translation potential. While we appreciate this well-designed study and its open data, we identified two major methodological issues that undermine these conclusions.*
 
 *First, the reported AUC of 1.0 in the "validation set" is fundamentally flawed. It was derived from a non-independent subset (n=16) taken directly from the training set, meaning the model was tested on data it had already seen. To calculate it, the authors selected 16 individuals from the training set after model training (using a fixed random seed of 23) and calculated the AUC for this small subset. In principle, the AUC for such a subset should match the training set’s AUC, but due to the small sample size, it is highly sensitive to the specific individuals sampled. Across 100 different random seeds, 23 was the only one producing such a favorable result (see Figure 1A). This highlights that the reported AUC of 1.0 is not a true measure of model performance but rather a consequence of an unrepresentative sub-sample where classification was artificially easy. The correct AUC to report here is 0.73. The term validation set is wrong and misleading.*
 
-*Second, the AUC of 0.88 for the test set was based on a single, randomly chosen train-test split. Given the small sample size, this risks sampling bias, inflating performance estimates and limits generalizability. We reanalyzed the data using repeated train-test splits while keeping all other analysis steps identical. While logistic regression remained the best-performing model, actual test set performance was substantially lower: AUC = 0.74, accuracy = 0.68. The reported AUC of 0.88 was observed in only 16 out of 1000 iterations (Figure 1B), making it an outlier rather than a reliable performance estimate.*
+*Second, the AUC of 0.88 for the test set was based on a single, randomly chosen train-test split. Given the small sample size, this risks sampling bias, inflating performance estimates and limits generalizability. We reanalyzed the data using repeated train-test splits while keeping all other analysis steps identical. While logistic regression remained the best-performing model, actual test set performance was substantially lower: AUC = 0.74, accuracy = 0.68. The reported AUC of 0.88 was observed in only 16 out of 1000 iterations (Figure 1B), making it an outlier rather than a robust performance estimate. Remarkably, our reanalysis shows that the likelihood of both reported AUC values occurring together was just **1 in 15,625**, indicating luck rather than reliability.*
 
 *Beyond these concerns, we identified several protocol deviations and coding errors, all documented in a publicly available GitHub repository. Furthermore, we believe it is important to stress that a machine learning approach is not well-suited for this dataset and prediction task due to the small sample size - only 16 individuals in one fold - and the use of just PAF and CME, the latter being binary.*
 
@@ -32,6 +32,7 @@ This repository contains code for the re-analysis of the paper: ["Predicting Ind
 **Figure 1**. **(A)** Out of 1,000 sub-samples of 16 individuals taken from the training set (they call it incorrectly ‘validation’ set), only four result in an AUC of 1.0. The expected AUC for this sub-sample is 0.73, matching the AUC of the training set, as successfully depicted in the histogram. **(B)** Out of 1,000 repeated analyses, in which all analysis steps—including the latent growth model used to form pain sensitivity classes—were identical to those in the original study, only 16 produced an AUC as high as the one reported in the paper. In fact, the likelihood of obtaining an AUC of 0.59 or lower was just as high as reaching the reported value of 0.88 (P = 0.016). The joint probability of these two results is 0.0064% (1 out of 15,625).
 
 ## Deviations from their protocol
+see protocol [here](https://journals.lww.com/painrpts/fulltext/2020/08000/a_novel_cortical_biomarker_signature_for.6.aspx)
 
 <table>
   <thead style="background-color: #808080; color: white;">
@@ -43,17 +44,17 @@ This repository contains code for the re-analysis of the paper: ["Predicting Ind
   </thead>
   <tbody>
     <tr>
-      <td><b> (...) </b></td>
+      <td>Corticomotor excitability on Day 5 (measured as map volume, a continuous variable) as a predictor for the model</td>
+      <td>The difference in map volume between Day 0 and Day 5 was calculated and then binarized.</td>
+      <td>The original predictor (map volume as a continuous variable) and the non-binarized difference performed worse.</td>
+    </tr>
+    <tr>
+      <td>(...) </td>
       <td> (...) </td>
       <td> (...) </td>
     </tr>
     <tr>
-      <td><b> (...) </b></td>
-      <td> (...) </td>
-      <td> (...) </td>
-    </tr>
-    <tr>
-      <td><b> (...) </b></td>
+      <td>(...) </td>
       <td> (...) </td>
       <td> (...) </td>
     </tr>
