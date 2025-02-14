@@ -1,6 +1,14 @@
 # Re-analysis of "Predicting Individual Pain Sensitivity Using a Novel Cortical Biomarker Signature"
 
+| Authors      | Ole Goltermann          | Tamas Spisak       | Christian Büchel         |
+|:-------------|:---------------------------|:----------------------|:---------------------|
+| **Contact**  | o.goltermann[@]uke.de  | tamas.spisak[@]uk-essen.de | buechel[@]uke.de  |
+
+![Last update](https://img.shields.io/badge/last_update-February_14,_2025-green)
+
 This repository contains code for the re-analysis of the paper: ["Predicting Individual Pain Sensitivity Using a Novel Cortical Biomarker Signature"](https://jamanetwork.com/journals/jamaneurology/fullarticle/2829261). The analysis includes the preprocessing and modeling of original data to evaluate predictive models for individual pain sensitivity class (low vs high) based on peak-alpha frequency (PAF) and corticomotor excitability (CME). Based on our results, as well as flaws and mistakes spotted in their code, we wrote the following **Letter to the Editor**:
+
+---
 
 *Chowdhury, Bi et al. (2025) evaluated a biomarker for pain sensitivity, reporting a logistic regression model using peak alpha frequency (PAF) and corticomotor excitability (CME) achieved outstanding performance (AUCvalidation set = 1.0, AUCtest set = 0.88). They concluded that this biomarker is robust, reproducible, and has substantial clinical translation potential. While we appreciate this well-designed study and its open data, we identified two major methodological issues that undermine these conclusions.* 
 
@@ -9,6 +17,8 @@ This repository contains code for the re-analysis of the paper: ["Predicting Ind
 *Second, the AUC of 0.88 for the test set was based on a single, randomly chosen train-test split. Given the small sample size, this risks sampling bias, inflating performance estimates and limits generalizability. We reanalyzed the data using repeated train-test splits while keeping all other analysis steps identical. While logistic regression remained the best-performing model, actual test set performance was substantially lower: AUC = 0.74, accuracy = 0.68. The reported AUC of 0.88 was observed in only 16 out of 1000 iterations (Figure 1B), making it an outlier rather than a reliable performance estimate.*
 
 *Beyond these concerns, we identified several protocol deviations and coding errors, all documented in a publicly available GitHub repository. Furthermore, we believe it is important to stress that a machine learning approach is not well-suited for this dataset and prediction task due to the small sample size - only 16 individuals in one fold - and the use of just PAF and CME, the latter being binary.*
+
+---
 
 ## Two main concerns about the results reported in the paper
 
@@ -23,9 +33,34 @@ This repository contains code for the re-analysis of the paper: ["Predicting Ind
 
 ## Deviations from their protocol
 
-| Protocol | What they actually did | Influence on results |
-|----------|------------------------|----------------------|
-| (...) | (...) | (...) |
+<table>
+  <thead style="background-color: #808080; color: white;">
+    <tr>
+      <th>Protocol</th>
+      <th>What they actually did</th>
+      <th>Influence on results</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td><b> (...) </b></td>
+      <td> (...) </td>
+      <td> (...) </td>
+    </tr>
+    <tr>
+      <td><b> (...) </b></td>
+      <td> (...) </td>
+      <td> (...) </td>
+    </tr>
+    <tr>
+      <td><b> (...) </b></td>
+      <td> (...) </td>
+      <td> (...) </td>
+    </tr>
+  </tbody>
+</table>
+
+## Errors in the code   
 
 ## Our analysis pipeline  
 
