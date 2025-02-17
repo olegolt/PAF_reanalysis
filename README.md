@@ -1,4 +1,4 @@
-# Overstated Predictive Performance of a Pain Sensitivity Biomarker: Methodological Concerns and Reanalysis
+# Overstated Predictive Performance of a Pain Sensitivity Biomarker
 
 | Authors      | Ole Goltermann          | Tamas Spisak       | Christian Büchel         |
 |:-------------|:---------------------------|:----------------------|:---------------------|
