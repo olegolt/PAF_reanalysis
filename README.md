@@ -70,27 +70,27 @@ Original Script is [here](https://github.com/DrNahianC/PREDICT_Scripts/blob/main
 
 1. **Parameter tuning for Models**: 
 
-      ClassifierTuner is imported, but not used for hyperparamter tuning 
+      ClassifierTuner is imported, but not used for hyperparamter tuning at all
    
-     <img src="figures/XY" alt="ML_class_1" width="1200">
+     <img src="figures/screenshots/ML_class_1.png" alt="ML_class_1" width="1200">
 
 2. **Parameter space for Classifiers**
     
     Logistic regression: Maximizing maxiter is not a real hyperparameter for logistic regression. 
 
-    <img src="figures/XY" alt="ML_class_2" width="1200">
+    <img src="figures/screenshots/ML_class_2.png" alt="ML_class_2" width="1200">
 
     Gradient Boosting: Learning rate 0.01 is used twice, Max depth of `None` doesn't make sense here
 
-    <img src="figures/XY" alt="ML_class_3" width="1200">
+    <img src="figures/screenshots/ML_class_3.png" alt="ML_class_3" width="1200">
 
     Support Vector Classifier: Optimizing `gamma` doesn't make sense with `kernel='linear'`
 
-    <img src="figures/XY" alt="ML_class_4" width="1200">
+    <img src="figures/screenshots/ML_class_4.png" alt="ML_class_4" width="1200">
 
     Mulit-layer Perceptron Classifier: alpha=0 is incorrect, it should always be positive; learning rate options could be added here
 
-    <img src="figures/XY" alt="ML_class_5" width="1200">
+    <img src="figures/screenshots/ML_class_5.png" alt="ML_class_5" width="1200">
       
 3. 
 
