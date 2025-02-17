@@ -63,6 +63,50 @@ see protocol [here](https://journals.lww.com/painrpts/fulltext/2020/08000/a_nove
 
 ## Errors in the code   
 
+### Python Script for fitting models to training data
+Script is used to train and fit models (Logistic Regression, Random Forest, Gradient Boosting, SVM, and MLP) to training data and applies locked model to test set.
+
+Original Script is [here](https://github.com/DrNahianC/PREDICT_Scripts/blob/main/PREDICT_Scripts-main/Machine%20Learning%20Scripts/ML_classification_PAF_CME.py)
+
+1. **Parameter tuning for Models**: 
+
+      ClassifierTuner is imported, but not used for hyperparamter tuning 
+   
+     <img src="figures/XY" alt="ML_class_1" width="1200">
+
+2. **Parameter space for Classifiers**
+    
+    Logistic regression: Maximizing maxiter is not a real hyperparameter for logistic regression. 
+
+    <img src="figures/XY" alt="ML_class_2" width="1200">
+
+    Gradient Boosting: Learning rate 0.01 is used twice, Max depth of `None` doesn't make sense here
+
+    <img src="figures/XY" alt="ML_class_3" width="1200">
+
+    Support Vector Classifier: Optimizing `gamma` doesn't make sense with `kernel='linear'`
+
+    <img src="figures/XY" alt="ML_class_4" width="1200">
+
+    Mulit-layer Perceptron Classifier: alpha=0 is incorrect, it should always be positive; learning rate options could be added here
+
+    <img src="figures/XY" alt="ML_class_5" width="1200">
+      
+3. 
+
+
+    
+
+
+### R-Script for Latent Growth Model
+The R script is fitting latent growth models (LGMs) to pain rating data of days 1 through 7, first estimating a single-group model (lcga1) using hlme(), then fitting a two-class model (lcga2) while optimizing starting values via gridsearch(). This aims to identify two subgroups ("high" and "low" pain sensitivity) with different growth trajectories in the data.
+
+Original Script is [here](https://github.com/DrNahianC/PREDICT_Scripts/blob/main/PREDICT_Scripts-main/Machine%20Learning%20Scripts/R_Script_LGM.R)
+
+<img src="figures/XY" alt="LGM_1" width="1200">
+
+`hlme()` should not be placed inside `gridsearch()` as an argument. 
+
 ## Our analysis pipeline  
 
 To reduce the risk of sample characteristic biases on the models performance estimate, we integrated a repeated split into training and test data. Additonally, we do not report metrics for a so called "validation set" but rather only report averaged metrics for training and test data with identical model configuration and sample sizes for the two sets as in the original paper. Our pipeline does the following:
