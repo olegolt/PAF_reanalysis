@@ -32,11 +32,9 @@ This repository contains code for the re-analysis of the paper: ["Predicting Ind
 
 **Figure 1**. **(A)** Out of 1,000 sub-samples of 16 individuals taken from the training set (questionably  labeled as ‘validation’ set), only 4 result in an AUC of 1.0 (p=0.004). The mean AUC for this sub-sample is 0.73, matching the cross-validated AUC of the training set, as depicted in the histogram. (B) Out of 1,000 repeated analyses, in which all analysis steps - including the latent growth modelling - were identical to those in the original study, only 10 produced an AUC as high as the one reported in the paper (p=0.01). The joint probability of observing these two metrics is 0.004% (1 out of 25,000).
 
-## Deviations from their protocol 
+## Deviations from their [protocol](https://journals.lww.com/painrpts/fulltext/2020/08000/a_novel_cortical_biomarker_signature_for.6.aspx)
 
-Listed below are only deviations that have an impact on the reported metrics beyond the two critical issues explained above.
-
-see protocol [here](https://journals.lww.com/painrpts/fulltext/2020/08000/a_novel_cortical_biomarker_signature_for.6.aspx)
+Listed below are only deviations that have an impact on the reported metrics, beyond the two critical issues mentioned above.
 
 <table>
   <thead style="background-color: #808080; color: white;">
@@ -60,7 +58,7 @@ see protocol [here](https://journals.lww.com/painrpts/fulltext/2020/08000/a_nove
   </tbody>
 </table>
 
-Adhering to the original pre-registered analysis we got an AUC = ``, accuracy = `` for the training set and AUC = ``, accuracy = `` for the text set.
+Adhering to the original pre-registered analysis, we got an AUC = `0.72`, accuracy = `0.68` for the training set and AUC = `0.71`, accuracy = `0.68` for the text set.
 
 ## Errors in the code   
 
