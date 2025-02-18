@@ -110,6 +110,8 @@ Original Script is [here](https://github.com/DrNahianC/PREDICT_Scripts/blob/main
 
    (4) The correct AUC to report would be either the average AUC across the 5 folds (**0.65**) or the performance of the locked model in the training set (**0.73**). This is done already here:
 
+    <img src="figures/code_screenshots/ML_class_9.png" alt="ML_class_9" width="1200"
+
 
 ### R-Script for Latent Growth Model
 The R script is fitting latent growth models (LGMs) to pain rating data of days 1 through 7, first estimating a single-group model (lcga1) using hlme(), then fitting a two-class model (lcga2) while optimizing starting values via gridsearch(). This aims to identify two subgroups ("high" and "low" pain sensitivity) with different growth trajectories in the data.
