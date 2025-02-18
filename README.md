@@ -92,10 +92,23 @@ Original Script is [here](https://github.com/DrNahianC/PREDICT_Scripts/blob/main
 
     <img src="figures/code_screenshots/ML_class_5.png" alt="ML_class_5" width="1200">
       
-3. 
+3. **AUC/Accuracy for so-called validation set**
 
+    The authors report an AUC and accuracy of 1 for the 'validation' set. However, as shown above, its not an actual validation set, but rather a small sub-sample of 16 individuals from the training set, using a particular seed (**=23**) to sample these individuals. Here the code, they use to generate this result.
 
-    
+   (1) Here predictors of the training set are assigned to `X` and outcome to `y`
+
+    <img src="figures/code_screenshots/ML_class_6.png" alt="ML_class_6" width="1200">
+
+   (2) Now (AFTER model training and locking of model), 16 individuals are drawn from the training data (X,y) using a **fixed random seed** of **23** (as shown this leads to an extreme unrepresentative sample that produces a very favorable result).
+
+    <img src="figures/code_screenshots/ML_class_7.png" alt="ML_class_7" width="1200">
+
+   (3) AUC is calculated for this sub-sample an reported as validation set AUC. 
+
+    <img src="figures/code_screenshots/ML_class_8.png" alt="ML_class_8" width="1200">
+
+   (4) The correct AUC to report would be either the average AUC across the 5 folds (**0.65**) or the performance of the locked model in the training set (**0.73**). This is done already here:
 
 
 ### R-Script for Latent Growth Model
