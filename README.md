@@ -31,7 +31,7 @@ This repository contains code for the re-analysis of the paper: ["Predicting Ind
 
 **Figure 1**. **(A)** Out of 1,000 sub-samples of 16 individuals taken from the training set (questionably  labeled as ‘validation’ set), only 4 result in an AUC of 1.0 (p=0.004). The mean AUC for this sub-sample is 0.73, matching the cross-validated AUC of the training set, as depicted in the histogram. (B) Out of 1,000 repeated analyses, in which all analysis steps - including the latent growth modelling - were identical to those in the original study, only  produced an AUC as high as the one reported in the paper (p=0.01). The joint probability of observing these two metrics is 0.004% (1 out of 25,000).
 
-## Deviations from their protocol
+## Deviations from their protocol 
 see protocol [here](https://journals.lww.com/painrpts/fulltext/2020/08000/a_novel_cortical_biomarker_signature_for.6.aspx)
 
 <table>
@@ -63,6 +63,8 @@ see protocol [here](https://journals.lww.com/painrpts/fulltext/2020/08000/a_nove
 
 ## Errors in the code   
 
+We only report errors here for the python script that is used to fit the model to training data and that have an impact on model performance indices. 
+
 ### Python Script for fitting models to training data
 Script is used to train and fit models (Logistic Regression, Random Forest, Gradient Boosting, SVM, and MLP) to training data and applies locked model to test set.
 
@@ -70,11 +72,18 @@ Original Script is [here](https://github.com/DrNahianC/PREDICT_Scripts/blob/main
 
 1. **Parameter tuning for Models**: 
 
-      ClassifierTuner is imported, but not used for hyperparamter tuning at all
+     ClassifierTuner is imported, but not used for hyperparamter tuning at all
    
      <img src="figures/code_screenshots/ML_class_1.png" alt="ML_class_1" width="1200">
 
-2. **Parameter space for Classifiers**
+2. **Imputing data for training set**:
+
+    Data is imputed in the trainings set for the whole set. That leads to information leakage between the k-folds. 
+    
+    <img src="figures/code_screenshots/ML_class_11.png" alt="ML_class_5" width="1200">
+
+    
+3. **Parameter space for Classifiers**
     
     Logistic regression: Maximizing maxiter is not a real hyperparameter for logistic regression. 
 
@@ -92,7 +101,7 @@ Original Script is [here](https://github.com/DrNahianC/PREDICT_Scripts/blob/main
 
     <img src="figures/code_screenshots/ML_class_5.png" alt="ML_class_5" width="1200">
       
-3. **AUC/Accuracy for so-called validation set**
+4. **AUC/Accuracy for so-called validation set**
 
     The authors report an AUC and accuracy of 1 for the 'validation' set. However, as shown above, its not an actual validation set, but rather a small sub-sample of 16 individuals from the training set, using a particular seed (**=23**) to sample these individuals. Here the code, they use to generate this result.
 
@@ -111,16 +120,6 @@ Original Script is [here](https://github.com/DrNahianC/PREDICT_Scripts/blob/main
    (4) The correct AUC to report would be either the average AUC across the 5 folds (**0.65**) or the performance of the locked model in the training set (**0.73**). This is done already here:
 
     <img src="figures/code_screenshots/ML_class_9.png" alt="ML_class_9" width="1200">
-
-
-### R-Script for Latent Growth Model
-The R script is fitting latent growth models (LGMs) to pain rating data of days 1 through 7, first estimating a single-group model (lcga1) using hlme(), then fitting a two-class model (lcga2) while optimizing starting values via gridsearch(). This aims to identify two subgroups ("high" and "low" pain sensitivity) with different growth trajectories in the data.
-
-Original Script is [here](https://github.com/DrNahianC/PREDICT_Scripts/blob/main/PREDICT_Scripts-main/Machine%20Learning%20Scripts/R_Script_LGM.R)
-
-<img src="figures/XY" alt="LGM_1" width="1200">
-
-`hlme()` should not be placed inside `gridsearch()` as an argument. 
 
 ## Our analysis pipeline  
 
