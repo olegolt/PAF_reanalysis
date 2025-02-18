@@ -110,7 +110,7 @@ Original Script is [here](https://github.com/DrNahianC/PREDICT_Scripts/blob/main
 
    (4) The correct AUC to report would be either the average AUC across the 5 folds (**0.65**) or the performance of the locked model in the training set (**0.73**). This is done already here:
 
-    <img src="figures/code_screenshots/ML_class_9.png" alt="ML_class_9" width="1200"
+    <img src="figures/code_screenshots/ML_class_9.png" alt="ML_class_9" width="1200">
 
 
 ### R-Script for Latent Growth Model
