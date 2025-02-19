@@ -7,7 +7,7 @@
 ![Last update](https://img.shields.io/badge/last_update-February_18,_2025-green)
 #
 
-This repository contains code for the re-analysis of the paper: ["Predicting Individual Pain Sensitivity Using a Novel Cortical Biomarker Signature"](https://jamanetwork.com/journals/jamaneurology/fullarticle/2829261). The analysis includes the preprocessing and modeling of original data to evaluate predictive models for individual pain sensitivity class (low vs high) based on peak-alpha frequency (PAF) and corticomotor excitability (CME). Based on our results, as well as flaws and mistakes spotted in their code, we wrote the following **Letter to the Editor**:
+This repository contains code for the re-analysis of the paper: ["Predicting Individual Pain Sensitivity Using a Novel Cortical Biomarker Signature"](https://jamanetwork.com/journals/jamaneurology/fullarticle/2829261). The analysis includes the preprocessing and modeling of original data to evaluate predictive models for individual pain sensitivity class (low vs high) based on peak-alpha frequency (PAF) and corticomotor excitability (CME). Based on our results, as well as flaws and mistakes spotted in their code, we wrote the following **Letter to the Editor**. In addition to this letter, this repository contains a list of deviations from the pre-registered protocol, errors in the original code, as well as further comments on the validity of the reporting findings. Instructions on how to use our code are at the end of this README. 
 
 ---
 *Chowdhury, Bi et al. (2025) evaluated a biomarker for pain sensitivity, reporting a logistic regression model using peak alpha frequency (PAF) and corticomotor excitability (CME) achieved outstanding performance (AUCvalidation set = 1.0, AUCtest set = 0.88). They concluded that this biomarker is robust, reproducible, and has substantial clinical translation potential. While we appreciate this well-designed study and its open data, we identified two major methodological issues that undermine these conclusions.*
@@ -117,8 +117,12 @@ Original Script is [here](https://github.com/DrNahianC/PREDICT_Scripts/blob/main
 
     <img src="figures/code_screenshots/ML_class_9.png" alt="ML_class_9" width="1200">
 
+    It is strange that the authors don't report the AUC they already calculated for their 5 folds (internal validation sets), which would correctly reflect the performance of the models in their particular analysis. Instead, they draw 16 people again out of the set the model is trained on (AND set the random seed to 23, a seed that is not used anywhere else) and report AUC for only these 16 people.
+
 ## Further comments 
 
+- The paper reports a wide range of sensitivity analyses. However, it is important to note that these do not affect the issues we raised above. For all their additional analyses, the calculated AUC and accuracy will still drop significantly as well.
+- The authors report that they randomly split the data into training and test sets. To replicate their exact split, we used the train_test_split() function from scikit-learn, which they also employed in their scripts. However, no random seed between 1 and 10,000,000 reproduced the split reported in the paper. If their split was indeed random, this suggests that they either used a random seed greater than 10,000,000 or, contrary to all other instances in their code, did not set a seed at all or used a different package for the split.
 
 ## Our analysis pipeline  
 
@@ -163,38 +167,25 @@ matplotlib
 1. Clone this repository:
 
    ```bash
-   git clone https://github.com/your_username/pain-sensitivity-reanalysis.git
-   cd pain-sensitivity-reanalysis
+   git clone https://github.com/your_username/PAF_reanalysis.git
+   cd PAF_reanalysis
    ```
 
-2. Set the `basepath` variable to the directory containing your input data files. The expected files in the data folder are:
-   - `PAF_all.xlsx`: Contains peak-alpha frequency data.
-   - `map_volume_all.xlsx`: Contains volume data for calculating CME.
-   - `yawn_pain_all.csv`: Contains pain rating reports (used for ground truth classification into low and high pain sensitivity)
-   - `chew_pain_all.csv`: Contains pain rating reports (used for ground truth classification into low and high pain sensitivity)
-  
-   The Rscript `run_LGM.R` is used to run the latent growth model.   
+2. Run the Jupyter notebook
 
+3. Execute the cells in order, ensuring the data files are in the specified `basepath`. The path is determined automatically. 
 
-3. Run the Jupyter notebook or Python script. For example:
-
-   ```bash
-   jupyter notebook
-   ```
-
-4. Execute the cells in order, ensuring the data files are in the specified `basepath`.
-
-5. Results will be saved in CSV format:
+4. Results will be saved in CSV format:
    - `results_all_runs.csv`: Contains detailed performance metrics for each random seed and model.
    - `summary_results.csv`: Contains aggregated accuracy and AUC metrics for training and test datasets.
 
-6. Visualization outputs are saved as SVG files:
+5. Visualization outputs are saved as SVG files:
    - `Accuracy_by_Model.svg`
    - `AUC_by_Model.svg`
 
 ## Results
 
-AUC and accuracy for the five different models are displayed here (based on 100 repetitions). 
+AUC and accuracy for the five different models are displayed here (based on 1000 repetitions). 
 
 <img src="figures/AUC_by_model.svg" alt="AUC" width="600">
 <img src="figures/Accuracy_by_model.svg" alt="AUC" width="600">
