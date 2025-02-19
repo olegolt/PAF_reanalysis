@@ -58,7 +58,7 @@ Listed below are only deviations that have an impact on the reported metrics, be
   </tbody>
 </table>
 
-Adhering to the original pre-registered analysis, we got an AUC = `0.72`, accuracy = `0.68` for the training set and AUC = `0.71`, accuracy = `0.68` for the text set.
+Adhering to the original pre-registered analysis, we got an AUC = `0.72`, accuracy = `0.68` for the training set and AUC = `0.71`, accuracy = `0.68` for the test set.
 
 ## Errors in the code   
 
