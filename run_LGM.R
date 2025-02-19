@@ -1,8 +1,32 @@
+# ------------------------------------------------------------------------
+# Latent Growth Model (LGM) Classification for Pain Sensitivity
+# 
+# This script performs latent growth modeling (LGM) to classify individuals 
+# into high and low pain sensitivity groups based on time-series pain data.
+# 
+# Author: ole.goltermann@maxplanckschools.de
+# Date: 2025-02-19
+# 
+# Based on the original script from:
+# https://github.com/DrNahianC/PREDICT_Scripts/blob/main/PREDICT_Scripts-main/Machine%20Learning%20Scripts/R_Script_LGM.R
+# ------------------------------------------------------------------------
+
+
+# Ensure required packages are installed
+if (!"lcmm" %in% installed.packages()[, "Package"]) install.packages("lcmm", repos = "http://cran.r-project.org")
+if (!"reshape2" %in% installed.packages()[, "Package"]) install.packages("reshape2", repos = "http://cran.r-project.org")
+if (!"parallel" %in% installed.packages()[, "Package"]) install.packages("parallel", repos = "http://cran.r-project.org")
+
+# load libaries 
 library(lcmm)
 library(reshape2)
-library(parallel)  # Load parallel package
+library(parallel)  
 
-basepath = "/home/ole/projects/PAF_reanalysis"
+# Read basepath from command-line arguments
+args <- commandArgs(trailingOnly = TRUE)
+basepath <- args[1]  # The first argument should be basepath
+
+#basepath = "/home/ole/projects/PAF_reanalysis"
 
 all_pain_df_train = read.csv(paste0(basepath,'/data/X_train.csv'))
 
