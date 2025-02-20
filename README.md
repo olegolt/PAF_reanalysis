@@ -20,7 +20,7 @@ This repository contains code for the re-analysis of the paper: ["Predicting Ind
 
 ## Two main concerns about the results reported in the paper
 
-As outlined in the letter we found two critical methodological issues:
+As outlined in the letter, we found two critical methodological issues:
 
 1. The reported AUC of 1 for the validation set is not based on a true validation set and, addtionally, results from using a fixed random seed (=23), which led to an extremely unrepresentative AUC estimate.
   
@@ -105,7 +105,7 @@ Original Script is [here](https://github.com/DrNahianC/PREDICT_Scripts/blob/main
 
     <img src="figures/code_screenshots/ML_class_6.png" alt="ML_class_6" width="1200">
 
-   (2) Now (AFTER model training and locking of model), 16 individuals are drawn from the training data (X,y) using a **fixed random seed** of **23** (as shown this leads to an extreme unrepresentative sample that produces an outlier).
+   (2) Now (after model training and locking of model), 16 individuals are drawn from the training data (X,y) using a **fixed random seed** of **23** (as shown this leads to an extreme unrepresentative sample that produces an outlier).
 
     <img src="figures/code_screenshots/ML_class_7.png" alt="ML_class_7" width="1200">
 
