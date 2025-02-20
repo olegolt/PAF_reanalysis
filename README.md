@@ -122,7 +122,7 @@ Original Script is [here](https://github.com/DrNahianC/PREDICT_Scripts/blob/main
 ## Further comments 
 
 - The paper reports a wide range of sensitivity analyses. However, it is important to note that these do not affect the issues we raised above. For all their additional analyses, the calculated AUC and accuracy will drop significantly as well.
-- Accroding to their protocol, the data was randomly split into training and test sets. We briefly tried to replicate the employed split, using the train_test_split() function from scikit-learn, which they also employed elsewhere in their scripts. However, we could not replicate the exact split with random seeds between 1 and 10,000,000. It would be interesting to know how the split was generated.
+- Accroding to their protocol, the data was randomly split into training and test sets. We briefly tried to replicate the employed split, using the train_test_split() function from scikit-learn, which they also employed elsewhere in their scripts. However, we could not replicate the exact split with random seeds between 1 and 100,000,000. It would be interesting to know how the split was generated.
 
 ## Our analysis pipeline  
 
