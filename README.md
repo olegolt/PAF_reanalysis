@@ -7,24 +7,24 @@
 ![Last update](https://img.shields.io/badge/last_update-February_18,_2025-green)
 #
 
-This repository contains code for the re-analysis of the paper: ["Predicting Individual Pain Sensitivity Using a Novel Cortical Biomarker Signature"](https://jamanetwork.com/journals/jamaneurology/fullarticle/2829261). The analysis includes the preprocessing and modeling of original data to evaluate predictive models for individual pain sensitivity class (low vs high) based on peak-alpha frequency (PAF) and corticomotor excitability (CME). Based on our results, as well as flaws and mistakes spotted in their code, we wrote the following **Letter to the Editor**. In addition to this letter, this repository contains a list of deviations from the pre-registered protocol, errors in the original code, as well as further comments on the validity of the reporting findings. Instructions on how to use our code are at the end of this README. 
+This repository contains code for the re-analysis of the paper: ["Predicting Individual Pain Sensitivity Using a Novel Cortical Biomarker Signature"](https://jamanetwork.com/journals/jamaneurology/fullarticle/2829261). The analysis includes the preprocessing and modeling of original data to evaluate predictive models for individual pain sensitivity class (low vs high) based on peak-alpha frequency (PAF) and corticomotor excitability (CME). Based on our results, as well as inconsistencies in the code, we wrote the following **Letter to the Editor**. In addition to this letter, this repository contains a list of deviations from the pre-registered protocol, inconsistencies in the original code, as well as further comments on the validity of the reported findings. Instructions on how to use our code are at the end of this README. 
 
 ---
-*Chowdhury, Bi et al. (2025) evaluated a biomarker for pain sensitivity, reporting a logistic regression model using peak alpha frequency (PAF) and corticomotor excitability (CME) achieved outstanding performance (AUCvalidation set = 1.0, AUCtest set = 0.88). They concluded that this biomarker is robust, reproducible, and has substantial clinical translation potential. While we appreciate this well-designed study and its open data, we identified two major methodological issues that undermine these conclusions.*
+*Chowdhury, Bi et al. (2025)1 evaluated a biomarker for pain sensitivity, combining peak alpha frequency and corticomotor excitability. The authors report “outstanding” performance (AUCvalidation set = 1.0, AUCtest set = 0.88) and conclude that this biomarker is robust, reproducible, and has substantial clinical translation potential. While we appreciate the well-designed study and accompanying open data and analysis code, we unfortunately identified two critical methodological issues that undermine these conclusions*
 
-*First, the reported AUC of 1.0 in the "validation set" is fundamentally flawed. It was derived from a non-independent subset (n=16) taken directly from the training set, meaning the model was tested on data it had already seen. To calculate it, the authors selected 16 individuals from the training set after model training (using a fixed random seed of 23) and calculated the AUC for this small subset. In principle, the AUC for such a subset should match the training set’s AUC, but due to the small sample size, it is highly sensitive to the specific individuals sampled. Across 100 different random seeds, 23 was the only one producing such a favorable result (see Figure 1A). This highlights that the reported AUC of 1.0 is not a true measure of model performance but rather a consequence of an unrepresentative sub-sample where classification was artificially easy. The correct AUC to report here is 0.73. The term validation set is wrong and misleading.*
+*First, the reported AUC of 1.0 in the "validation set" is misleading. It was derived from a non-independent subset (n=16) taken directly from the training set (n=80), meaning the model was tested on data it had already seen. The AUC for such a subset does not yield any additional value and, in principle, it should match the training set’s AUC (=0.73). However, due to the small sample size, it is highly sensitive to the specific individuals sampled. Upon re-running the analysis code, it turned out that an extremely unrepresentative sample was chosen (by fixing the seed used for random sampling at 23), with 99.6% of possible samples yielding worse performance (see Figure 1A). This highlights that the reported AUC of 1.0 is not a representative measure of model performance but rather the consequence of a particular random seed.*
 
-*Second, the AUC of 0.88 for the test set was based on a single, randomly chosen train-test split. Given the small sample size, this risks sampling bias, inflating performance estimates and limits generalizability. We reanalyzed the data using repeated train-test splits while keeping all other analysis steps identical. While logistic regression remained the best-performing model, actual test set performance was substantially lower: AUC = 0.74, accuracy = 0.68. The reported AUC of 0.88 was observed in only 16 out of 1000 iterations (Figure 1B), making it an outlier rather than a robust performance estimate. Remarkably, our reanalysis shows that the likelihood of both reported AUC values occurring together was just **1 in 25,000**, indicating luck rather than reliability.*
-
-*Beyond these concerns, we identified several protocol deviations and coding errors, all documented in a publicly available GitHub repository. Furthermore, we believe it is important to stress that a machine learning approach is not well-suited for this dataset and prediction task due to the small sample size - only 16 individuals in one fold - and the use of just PAF and CME, the latter being binary.*
+*Second, the AUC of 0.88 for the test set was again based on a single, randomly chosen train-test split. Although we acknowledge that the authors pre-registered the use of a single random split, the small test sample size (n=38), again, introduces a large risk of sampling bias, potentially inflating performance estimates and limiting generalizability.2,3 To evaluate the representativeness of their split, we reanalyzed the data using repeated train-test splits while keeping all other analysis steps identical (for a detailed analysis notebook and further technical comments see our github repository4). This revealed  a substantially lower average predictive performance in the test set: AUC = 0.74, accuracy = 0.68, with 99% of train-test splits yielding an AUC lower than the reported AUC of 0.88 (Figure 1B), making it again an outlier rather than a robust performance estimate. This implies that nearly one in three individuals would be classified incorrectly by this biomarker, severely limiting its clinical utility and raising serious doubts about its potential for translation into clinical practice.*
 
 ---
 
 ## Two main concerns about the results reported in the paper
 
-1. The reported metric for the validation set is not based on a true validation set. The AUC and accuracy of 1.00 in the so-called “validation set” are derived from a single sub-sample of 16 individuals taken directly from the training data. Since the model was trained on the same data, the expected AUC/accuracy for sub-samples should be, on average, identical to that of the training set. Due to the small size, the estimate for this sub-sample will be highly unreliable. This “validation set” was drawn from the training data using a fixed random seed of 23 (line 180 in their code on [GitHub](https://github.com/DrNahianC/PREDICT_Scripts/blob/main/PREDICT_Scripts-main/Machine%20Learning%20Scripts/ML_classification_PAF_CME.py)). Notably, out of all random seeds from 1 to 100, seed 23 is the only one that produces such a favorable result. The observed AUC is a consequence of specific sample characteristics within these 16 individuals and does not provide a reliable estimate of the model’s performance—neither for the training set nor, even more so, for a supposed “validation set.” The histogram in **Figure 1A** illustrates the AUC distribution for random seeds ranging from 1 to 1000. As expected, it reflects the model's performance in the training set.
+As outlined in the letter we found two critical methodological issues:
+
+1. The reported AUC of 1 for the validation set is not based on a true validation set and, addtionally, results from using a fixed random seed (=23), which led to an extremely unrepresentative AUC estimate.
   
-2. Similarly, the reported AUC of 0.88 for the test set is based on a single train-test split. Given the relatively small overall sample size for this type of analysis, the result is likely susceptible to biases introduced by specific sample characteristics. To mitigate this issue, we recommend implementing repeated train-test splits in the analysis pipeline and calculating average AUC and accuracy metrics. This approach provides more robust and reliable estimates of model performance. **Figure 1B** shows the AUC for our analysis with repeated data splits. The reported AUC of 0.88 in the paper is clearly an outlier and not a valid estimate of the models performance. Out of 1000 iterations, only 10 produced an AUC as high as 0.88. Importantly, the probability of observing an AUC of 0.59 or lower is just as high as obtaining the AUC reported in the paper. 
+2. The reported AUC of 0.88 for the test set is based on a single, random train-test split. Given the small overall sample size for this type of analysis, the result is likely susceptible to biases introduced by specific sample characteristics. We found that only 10 out of 1000 iterations produced an AUC as high as 0.88. The probability of observing an AUC of 0.59 or lower is just as high as obtaining the AUC reported in the paper. 
 
 
    <img src="figures/Metrics_testset_histogram_with_cutoff.svg" alt="histograms" width="1200">
@@ -53,16 +53,16 @@ Listed below are only deviations that have an impact on the reported metrics, be
     <tr>
       <td>"The sample of 150 subjects will first be randomly divided into an outer-training set (n = 100) and an outer-testing set (n = 50). The ratios of high- vs low-pain sensitive individuals will be matched between the 2 cohorts" (...) </td>
       <td> Test set is imbalanced. 24 are coded as high, 14 as low pain sensitivity. </td>
-      <td> As demonstrated above, the AUC of the test set is unrepresentative and a clear (favorable) outlier. </td>
+      <td> As demonstrated above, the AUC of the test set is unrepresentative and a clear outlier. </td>
     </tr>
   </tbody>
 </table>
 
 Adhering to the original pre-registered analysis, we got an AUC = `0.72`, accuracy = `0.68` for the training set and AUC = `0.71`, accuracy = `0.68` for the test set.
 
-## Errors in the code   
+## Inconsistencies in the code   
 
-We only report errors here that have an impact on model performance indices. 
+We only report inconsistencies here that have an impact on model performance indices. 
 
 Original Script is [here](https://github.com/DrNahianC/PREDICT_Scripts/blob/main/PREDICT_Scripts-main/Machine%20Learning%20Scripts/ML_classification_PAF_CME.py)
 
@@ -93,7 +93,7 @@ Original Script is [here](https://github.com/DrNahianC/PREDICT_Scripts/blob/main
 
     <img src="figures/code_screenshots/ML_class_4.png" alt="ML_class_4" width="1200">
 
-    Mulit-layer Perceptron Classifier: alpha=0 is incorrect, it should always be positive; learning rate options could be added here
+    Mulit-layer Perceptron: alpha=0 is incorrect, it should always be positive; learning rate options could be added here
 
     <img src="figures/code_screenshots/ML_class_5.png" alt="ML_class_5" width="1200">
       
@@ -105,7 +105,7 @@ Original Script is [here](https://github.com/DrNahianC/PREDICT_Scripts/blob/main
 
     <img src="figures/code_screenshots/ML_class_6.png" alt="ML_class_6" width="1200">
 
-   (2) Now (AFTER model training and locking of model), 16 individuals are drawn from the training data (X,y) using a **fixed random seed** of **23** (as shown this leads to an extreme unrepresentative sample that produces a very favorable result).
+   (2) Now (AFTER model training and locking of model), 16 individuals are drawn from the training data (X,y) using a **fixed random seed** of **23** (as shown this leads to an extreme unrepresentative sample that produces an outlier).
 
     <img src="figures/code_screenshots/ML_class_7.png" alt="ML_class_7" width="1200">
 
@@ -117,12 +117,12 @@ Original Script is [here](https://github.com/DrNahianC/PREDICT_Scripts/blob/main
 
     <img src="figures/code_screenshots/ML_class_9.png" alt="ML_class_9" width="1200">
 
-    It is strange that the authors don't report the AUC they already calculated for their 5 folds (internal validation sets), which would correctly reflect the performance of the models in their particular analysis. Instead, they draw 16 people again out of the set the model is trained on (AND set the random seed to 23, a seed that is not used anywhere else) and report AUC for only these 16 people.
+    We would like to note that it is somewhat unusal that the authors did not report the AUCs already calculated for their 5 folds (internal validation sets), which would have accurately reflect the performance of the models in their particular analysis. Instead, they opted to draw 16 individuals again, using a fixed random seed (=23).
 
 ## Further comments 
 
-- The paper reports a wide range of sensitivity analyses. However, it is important to note that these do not affect the issues we raised above. For all their additional analyses, the calculated AUC and accuracy will still drop significantly as well.
-- The authors report that they randomly split the data into training and test sets. To replicate their exact split, we used the train_test_split() function from scikit-learn, which they also employed in their scripts. However, no random seed between 1 and 10,000,000 reproduced the split reported in the paper. If their split was indeed random, this suggests that they either used a random seed greater than 10,000,000 or, contrary to all other instances in their code, did not set a seed at all or used a different package for the split.
+- The paper reports a wide range of sensitivity analyses. However, it is important to note that these do not affect the issues we raised above. For all their additional analyses, the calculated AUC and accuracy will drop significantly as well.
+- The data was randomly split into training and test sets. We briefly tried to replicate the employed split, using the train_test_split() function from scikit-learn, which they also employed elsewhere in their scripts. However, we could not replicate the exact split with random seeds between 1 and 10,000,000. It would be interesting to know how the split was generated.
 
 ## Our analysis pipeline  
 
@@ -160,6 +160,7 @@ pandas
 scikit-learn
 seaborn
 matplotlib
+openpyxl
 ```
 
 ## How to Run the Code
