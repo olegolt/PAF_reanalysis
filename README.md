@@ -1,4 +1,4 @@
-#Concern About Predictive Performance of a Pain Sensitivity Biomarker
+# Concern About Predictive Performance of a Pain Sensitivity Biomarker
 
 | Authors      | Ole Goltermann          | Tamas Spisak       | Christian Büchel         |
 |:-------------|:---------------------------|:----------------------|:---------------------|
