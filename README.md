@@ -4,7 +4,7 @@
 |:-------------|:---------------------------|:----------------------|:---------------------|
 | **Contact**  | o.goltermann[@]uke.de  | tamas.spisak[@]uk-essen.de | buechel[@]uke.de  |
 
-![Last update](https://img.shields.io/badge/last_update-July-21,_2025-green)
+![Last update](https://img.shields.io/badge/last_update-July_21,_2025-green)
 #
 
 This repository contains code for the re-analysis of the paper: ["Predicting Individual Pain Sensitivity Using a Novel Cortical Biomarker Signature"](https://jamanetwork.com/journals/jamaneurology/fullarticle/2829261). The analysis includes the preprocessing and modeling of original data to evaluate predictive models for individual pain sensitivity class (low vs high) based on peak-alpha frequency (PAF) and corticomotor excitability (CME). Based on our results, as well as inconsistencies in the code, we wrote a **Letter to the Editor**. In addition our raised concerns, this repository contains a list of deviations from the pre-registered protocol, inconsistencies in the original code, as well as further comments on the validity of the reported findings. 
