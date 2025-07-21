@@ -4,16 +4,16 @@
 |:-------------|:---------------------------|:----------------------|:---------------------|
 | **Contact**  | o.goltermann[@]uke.de  | tamas.spisak[@]uk-essen.de | buechel[@]uke.de  |
 
-![Last update](https://img.shields.io/badge/last_update-February_18,_2025-green)
+![Last update](https://img.shields.io/badge/last_update-July-21,_2025-green)
 #
 
-This repository contains code for the re-analysis of the paper: ["Predicting Individual Pain Sensitivity Using a Novel Cortical Biomarker Signature"](https://jamanetwork.com/journals/jamaneurology/fullarticle/2829261). The analysis includes the preprocessing and modeling of original data to evaluate predictive models for individual pain sensitivity class (low vs high) based on peak-alpha frequency (PAF) and corticomotor excitability (CME). Based on our results, as well as inconsistencies in the code, we wrote a **Letter to the Editor**. In addition to this letter, this repository contains a list of deviations from the pre-registered protocol, inconsistencies in the original code, as well as further comments on the validity of the reported findings. Instructions on how to use our code are at the end of this README. 
+This repository contains code for the re-analysis of the paper: ["Predicting Individual Pain Sensitivity Using a Novel Cortical Biomarker Signature"](https://jamanetwork.com/journals/jamaneurology/fullarticle/2829261). The analysis includes the preprocessing and modeling of original data to evaluate predictive models for individual pain sensitivity class (low vs high) based on peak-alpha frequency (PAF) and corticomotor excitability (CME). Based on our results, as well as inconsistencies in the code, we wrote a **Letter to the Editor**. In addition our raised concerns, this repository contains a list of deviations from the pre-registered protocol, inconsistencies in the original code, as well as further comments on the validity of the reported findings. 
+
+**Instructions on how to use our code are at the end of this README.**
 
 ---
 
-## Two main concerns about the results reported in the paper
-
-As outlined in the letter, we found two critical methodological issues:
+## Three main concerns about the results reported in the paper
 
 1. The reported AUC of 1 for the validation set is not based on a true validation set and, addtionally, results from using a fixed random seed (=23), which led to an extremely unrepresentative AUC estimate.
   
@@ -24,6 +24,9 @@ As outlined in the letter, we found two critical methodological issues:
 
 
 **Figure 1**. **(A)** Out of 1,000 sub-samples of 16 individuals taken from the training set (questionably  labeled as ‘validation’ set), only 4 result in an AUC of 1.0 (p=0.004). The mean AUC for this sub-sample is 0.73, matching the cross-validated AUC of the training set, as depicted in the histogram. (B) Out of 1,000 repeated analyses, in which all analysis steps - including the latent growth modelling - were identical to those in the original study, only 10 produced an AUC as high as the one reported in the paper (p=0.01). The joint probability of observing these two metrics is 0.004% (1 out of 25,000).
+
+3. Labeling this approach as “machine learning” is misleading. Although the term is often used broadly, its use here implies a level of complexity and rigor that the data and modeling simply do not support. The dataset includes only 118 individuals, with just 80 in the training set [16 for evaluating performance] and 38 in the test set - numbers that are far too small for parameter-rich models like neural networks. Describing this as a “large dataset” is inaccurate. e models are trained on only two predictors, one of which is binary. Complex models are built to capture intricate patterns in high-dimensional, nonlinear data - not to handle trivial input spaces. Using such models in this context is scientifically unjustified. Unsurprisingly, the simplest model - logistic regression - achieved the best performance.
+
 
 ## Deviations from their [protocol](https://journals.lww.com/painrpts/fulltext/2020/08000/a_novel_cortical_biomarker_signature_for.6.aspx)
 
@@ -115,7 +118,7 @@ Original Script is [here](https://github.com/DrNahianC/PREDICT_Scripts/blob/main
 ## Further comments 
 
 - The paper reports a wide range of sensitivity analyses. However, it is important to note that these do not affect the issues we raised above. For all their additional analyses, the calculated AUC and accuracy will drop significantly as well.
-- Accroding to their protocol, the data was randomly split into training and test sets. We briefly tried to replicate the employed split, using the train_test_split() function from scikit-learn, which they also employed elsewhere in their scripts. However, we could not replicate the exact split with random seeds between 1 and 100,000,000. It would be interesting to know how the split was generated.
+- Accroding to their protocol, the data was randomly split into training and test sets. However, we were unable to reproduce their partition using scikit-learn’s `train_test_split()` function - despite exhaustively testing all possible seeds between 1 and 2³² - even though this function, along with scikit-learn more generally, is used elsewhere in their scripts.
 
 ## Our analysis pipeline  
 
