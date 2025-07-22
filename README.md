@@ -188,5 +188,5 @@ AUC and accuracy for the five different models are displayed here (based on 1000
 <img src="figures/Accuracy_by_model.svg" alt="AUC" width="600">
 
 ## Contact
-For questions or issues, please contact [ole.goltermann@maxplanckschools.de].
+For questions or issues, please contact [o.goltermann@uke.de].
 
