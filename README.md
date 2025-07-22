@@ -13,7 +13,7 @@ This repository contains code for the re-analysis of the paper: ["Predicting Ind
 
 ---
 
-## Three main concerns about the results reported in the paper
+## Two main concerns about the results reported in the paper
 
 1. The reported AUC of 1 for the validation set is not based on a true validation set and, addtionally, results from using a fixed random seed (=23), which led to an extremely unrepresentative AUC estimate.
   
@@ -25,8 +25,8 @@ This repository contains code for the re-analysis of the paper: ["Predicting Ind
 
 **Figure 1**. **(A)** Out of 1,000 sub-samples of 16 individuals taken from the training set (questionably  labeled as ‘validation’ set), only 4 result in an AUC of 1.0 (p=0.004). The mean AUC for this sub-sample is 0.73, matching the cross-validated AUC of the training set, as depicted in the histogram. (B) Out of 1,000 repeated analyses, in which all analysis steps - including the latent growth modelling - were identical to those in the original study, only 10 produced an AUC as high as the one reported in the paper (p=0.01). The joint probability of observing these two metrics is 0.004% (1 out of 25,000).
 
-3. Labeling this approach as “machine learning” is misleading. Although the term is often used broadly, its use here implies a level of complexity and rigor that the data and modeling simply do not support. The dataset includes only 118 individuals, with just 80 in the training set [16 for evaluating performance] and 38 in the test set - numbers that are far too small for parameter-rich models like neural networks. Describing this as a “large dataset” is inaccurate. e models are trained on only two predictors, one of which is binary. Complex models are built to capture intricate patterns in high-dimensional, nonlinear data - not to handle trivial input spaces. Using such models in this context is scientifically unjustified. Unsurprisingly, the simplest model - logistic regression - achieved the best performance.
 
+Furthermore, we would like to note that labeling their approach as “machine learning” is misleading, as the simple input features (only two predictors, one of which being binary) do not justify the use of complex models like neural networks. 
 
 ## Deviations from their [protocol](https://journals.lww.com/painrpts/fulltext/2020/08000/a_novel_cortical_biomarker_signature_for.6.aspx)
 
